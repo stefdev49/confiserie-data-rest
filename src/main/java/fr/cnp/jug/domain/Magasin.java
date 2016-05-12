@@ -2,7 +2,9 @@ package fr.cnp.jug.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -16,10 +18,10 @@ public class Magasin extends AbstractPersistable<Long> {
 
 	private String description;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private Adresse adresse;
 
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<Bonbon> bonbons;
 
 	public String getNom() {
