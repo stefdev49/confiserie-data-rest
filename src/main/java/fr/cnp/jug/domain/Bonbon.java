@@ -1,7 +1,6 @@
 package fr.cnp.jug.domain;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
