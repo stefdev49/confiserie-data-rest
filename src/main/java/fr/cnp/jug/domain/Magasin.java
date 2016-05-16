@@ -10,6 +10,9 @@ import javax.persistence.OneToOne;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @SuppressWarnings("serial")
 @Entity
 public class Magasin extends AbstractPersistable<Long> {
@@ -18,10 +21,12 @@ public class Magasin extends AbstractPersistable<Long> {
 
 	private String description;
 	
-    @OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JsonInclude(Include.NON_EMPTY)
+    @OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     private Adresse adresse;
     
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    @JsonInclude(Include.NON_EMPTY)
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     private List<Bonbon> bonbons;
 	
 	public String getNom() {

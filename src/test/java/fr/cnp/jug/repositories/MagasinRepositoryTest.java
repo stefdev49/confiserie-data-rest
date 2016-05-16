@@ -17,7 +17,7 @@ import fr.cnp.jug.domain.Magasin;
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, 
 						 TransactionalTestExecutionListener.class})
 @RunWith(SpringJUnit4ClassRunner.class)
-//@SpringApplicationConfiguration(classes = Application.class) => implique d'avoir une test 'serveur'
+//@SpringApplicationConfiguration(classes = Application.class) => implique d'avoir un test 'serveur'
 @ContextConfiguration(classes = RepositoryConfiguration.class)
 public class MagasinRepositoryTest {
 
@@ -45,5 +45,7 @@ public class MagasinRepositoryTest {
 		Magasin actual = repository.save(nouveau);
 		
 		assertThat(actual).isNotNull();
+		Magasin created=repository.findOne(actual.getId());
+		assertThat(created).isNotNull();
 	}
 }
