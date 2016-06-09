@@ -1,4 +1,4 @@
-package fr.cnp.jug.server;
+package fr.stef.jug.server;
 
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.given;
 
@@ -14,28 +14,30 @@ import org.springframework.web.context.WebApplicationContext;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
 
-import fr.cnp.jug.domain.DomainConfiguration;
-import fr.cnp.jug.repositories.RepositoryConfiguration;
+import fr.stef.jug.domain.DomainConfiguration;
+import fr.stef.jug.repositories.RepositoryConfiguration;
 
 /**
+ * test d'intégration du serveur REST.
+ * 
  * Created by stef on 14/05/2016.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { DomainConfiguration.class, RepositoryConfiguration.class })
 @WebAppConfiguration
 public class RestServerTest {
-	private static final String POST_MAGASIN_JSON = "{ \"nom\": \"QK Confiserie\", \"description\": \"Confiseries anglaises\", \"adresse\": { \"rue\": \"9 rue Saint-Etienne\", \"codePostal\": \"49000\", \"ville\": \"ANGERS\"} }";
+  private static final String POST_MAGASIN_JSON = "{ \"nom\": \"QK Confiserie\", \"description\": \"Confiseries anglaises\", \"adresse\": { \"rue\": \"9 rue Saint-Etienne\", \"codePostal\": \"49000\", \"ville\": \"ANGERS\"} }";
 
-    @Autowired
-    WebApplicationContext webApplicationContext;
+  @Autowired
+  WebApplicationContext webApplicationContext;
 
-    @Before
-    public void setUp() throws Exception {
-        RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
-    }
+  @Before
+  public void setUp() throws Exception {
+    RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
+  }
 
-    @Test
-    public void postMagasinOK() {
-        given().contentType(ContentType.JSON).body(POST_MAGASIN_JSON).post("/magasins").then().statusCode(201);
-    }
+  @Test
+  public void postMagasinOK() {
+    given().contentType(ContentType.JSON).body(POST_MAGASIN_JSON).post("/magasins").then().statusCode(201);
+  }
 }
