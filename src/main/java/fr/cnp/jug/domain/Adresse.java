@@ -14,7 +14,6 @@ public class Adresse extends AbstractPersistable<Long> {
 
     private String ville;
 
-
 	public String getRue() {
 		return rue;
 	}

@@ -14,7 +14,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import fr.cnp.jug.domain.Adresse;
 import fr.cnp.jug.domain.Magasin;
 
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, 
 						 TransactionalTestExecutionListener.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 //@SpringApplicationConfiguration(classes = Application.class) => implique d'avoir un test 'serveur'
@@ -29,11 +29,11 @@ public class MagasinRepositoryTest {
 		Magasin qk=repository.findOne(1L);
 		assertThat(qk).isNotNull();
 	}
-
+	
 	@Test
 	public void creationMagasinOk() {
 		Magasin nouveau=new Magasin();
-
+		
 		nouveau.setNom("test");
 		nouveau.setDescription("test de création");
 		Adresse adresse=new Adresse();
@@ -41,9 +41,9 @@ public class MagasinRepositoryTest {
 		adresse.setCodePostal("code postal");
 		adresse.setVille("TDD");
 		nouveau.setAdresse(adresse);
-
+		
 		Magasin actual = repository.save(nouveau);
-
+		
 		assertThat(actual).isNotNull();
 		Magasin created=repository.findOne(actual.getId());
 		assertThat(created).isNotNull();

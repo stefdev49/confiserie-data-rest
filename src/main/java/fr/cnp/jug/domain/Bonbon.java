@@ -7,11 +7,11 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @SuppressWarnings("serial")
 @Entity
 public class Bonbon extends AbstractPersistable<Long> {
-
+    
     private String nom;
-
+    
     private String description;
-
+    
 	public String getNom() {
 		return nom;
 	}
