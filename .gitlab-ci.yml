@@ -1,0 +1,3 @@
+job:
+  script:
+    - mvn clean install
