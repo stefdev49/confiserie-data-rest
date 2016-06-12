@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * Magasin de bonbons.
- * 
+ *
  * @author stef
  *
  */
@@ -28,11 +28,11 @@ public class Magasin extends AbstractPersistable<Long> {
   private String description;
 
   @JsonInclude(Include.NON_EMPTY)
-  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Adresse adresse;
 
   @JsonInclude(Include.NON_EMPTY)
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Bonbon> bonbons;
 
   public String getNom() {
@@ -51,36 +51,45 @@ public class Magasin extends AbstractPersistable<Long> {
   public int hashCode() {
     final int prime = 31;
     int result = super.hashCode();
-    result = prime * result + ((adresse == null) ? 0 : adresse.hashCode());
-    result = prime * result + ((description == null) ? 0 : description.hashCode());
-    result = prime * result + ((nom == null) ? 0 : nom.hashCode());
+    result = prime * result + (adresse == null ? 0 : adresse.hashCode());
+    result = prime * result + (description == null ? 0 : description.hashCode());
+    result = prime * result + (nom == null ? 0 : nom.hashCode());
     return result;
   }
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
+    if (this == obj) {
       return true;
-    if (!super.equals(obj))
+    }
+    if (!super.equals(obj)) {
       return false;
-    if (getClass() != obj.getClass())
+    }
+    if (getClass() != obj.getClass()) {
       return false;
+    }
     Magasin other = (Magasin) obj;
     if (adresse == null) {
-      if (other.adresse != null)
+      if (other.adresse != null) {
         return false;
-    } else if (!adresse.equals(other.adresse))
+      }
+    } else if (!adresse.equals(other.adresse)) {
       return false;
+    }
     if (description == null) {
-      if (other.description != null)
+      if (other.description != null) {
         return false;
-    } else if (!description.equals(other.description))
+      }
+    } else if (!description.equals(other.description)) {
       return false;
+    }
     if (nom == null) {
-      if (other.nom != null)
+      if (other.nom != null) {
         return false;
-    } else if (!nom.equals(other.nom))
+      }
+    } else if (!nom.equals(other.nom)) {
       return false;
+    }
     return true;
   }
 

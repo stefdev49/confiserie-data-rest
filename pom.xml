@@ -30,6 +30,11 @@
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
     </dependency>
+    <!-- gestion hibernate4 pas jackson (en particulier le lazy loading) -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-hibernate4</artifactId>
+    </dependency>
     <!-- pour le redéploiement cf https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html -->
     <dependency>
       <groupId>org.springframework.boot</groupId>

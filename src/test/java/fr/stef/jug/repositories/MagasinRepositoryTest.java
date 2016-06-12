@@ -10,6 +10,8 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.stef.jug.domain.Adresse;
 import fr.stef.jug.domain.Magasin;
@@ -19,6 +21,9 @@ import fr.stef.jug.domain.Magasin;
 // @SpringApplicationConfiguration(classes = Application.class) => implique
 // d'avoir un test 'serveur'
 @ContextConfiguration(classes = RepositoryConfiguration.class)
+// ajout transaction
+@Transactional(transactionManager = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = {
+    Exception.class })
 public class MagasinRepositoryTest {
 
   @Autowired
