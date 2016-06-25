@@ -1,7 +1,9 @@
 package fr.stef.jug.server;
 
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.given;
+import static org.hamcrest.Matchers.equalTo;
 
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +14,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.jayway.restassured.http.ContentType;
+import com.jayway.restassured.matcher.ResponseAwareMatcher;
 import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
+import com.jayway.restassured.module.mockmvc.response.MockMvcResponse;
 
 import fr.stef.jug.domain.DomainConfiguration;
 import fr.stef.jug.repositories.RepositoryConfiguration;
@@ -26,7 +30,7 @@ import fr.stef.jug.repositories.RepositoryConfiguration;
 @ContextConfiguration(classes = { DomainConfiguration.class, RepositoryConfiguration.class })
 @WebAppConfiguration
 public class RestServerTest {
-  private static final String POST_MAGASIN_JSON = "{ \"nom\": \"QK Confiserie\", \"description\": \"Confiseries anglaises\", \"adresse\": { \"rue\": \"9 rue Saint-Etienne\", \"codePostal\": \"49000\", \"ville\": \"ANGERS\"} }";
+  private static final String POST_MAGASIN_JSON = "{ \"nom\": \"Une autre Confiserie\", \"description\": \"Confiseries géniales\", \"adresse\": { \"rue\": \"19 rue du test\", \"codePostal\": \"99999\", \"ville\": \"TESTVILLE\"} }";
 
   @Autowired
   WebApplicationContext webApplicationContext;
@@ -39,5 +43,19 @@ public class RestServerTest {
   @Test
   public void postMagasinOK() {
     given().contentType(ContentType.JSON).body(POST_MAGASIN_JSON).post("/magasins").then().statusCode(201);
+  }
+  
+  /**
+   * test get d'un itm par son nom, avec un  assert sur le contenu d'un des attributs retournés.
+   */
+  @Test
+  public void searchByNomOK() {
+    // http://localhost:7076/api/magasins/search/findByNom?nom=QK Confiserie
+    // on doit avoir "description": "Confiseries anglaises" en retour
+    given().get("/magasins/search/findByNom?nom=QK Confiserie").then().statusCode(200).body("description", new ResponseAwareMatcher<MockMvcResponse>() {
+      public Matcher<?> matcher(MockMvcResponse response) {
+        return equalTo("Confiseries anglaises");
+    }
+});
   }
 }
