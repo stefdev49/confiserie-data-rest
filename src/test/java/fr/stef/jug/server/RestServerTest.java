@@ -46,16 +46,50 @@ public class RestServerTest {
   }
   
   /**
-   * test get d'un itm par son nom, avec un  assert sur le contenu d'un des attributs retournés.
+   * test get d'un item par son nom, avec un assert sur le contenu d'un des
+   * attributs retournés.
    */
   @Test
   public void searchByNomOK() {
     // http://localhost:7076/api/magasins/search/findByNom?nom=QK Confiserie
     // on doit avoir "description": "Confiseries anglaises" en retour
-    given().get("/magasins/search/findByNom?nom=QK Confiserie").then().statusCode(200).body("description", new ResponseAwareMatcher<MockMvcResponse>() {
+    given().get("/magasins/search/findByNom?nom=QK Confiserie").then().statusCode(200).body("description",
+        new ResponseAwareMatcher<MockMvcResponse>() {
       public Matcher<?> matcher(MockMvcResponse response) {
         return equalTo("Confiseries anglaises");
-    }
-});
+      }
+    });
+  }
+  
+  /**
+   * test get d'un item par texte, avec un assert sur le contenu d'un des
+   * attributs retournés.
+   */
+  @Test
+  public void getSearchByTexteURL() {
+    // http://localhost:7076/api/magasins/search/
+    // on doit avoir "description": "Confiseries anglaises" en retour
+    given().get("/api/magasins/search/").then().statusCode(200).body("description",
+        new ResponseAwareMatcher<MockMvcResponse>() {
+      public Matcher<?> matcher(MockMvcResponse response) {
+        return equalTo("magasin mock");
+      }
+    });
+  }
+
+  /**
+   * test get d'un item par texte, avec un assert sur le contenu d'un des
+   * attributs retournés.
+   */
+  @Test
+  public void searchByTexteOK() {
+    // http://localhost:7076/api/magasins/search/findByTexte?texte=confiserie
+    // on doit avoir "description": "Confiseries anglaises" en retour
+    given().get("/api/magasins/search/findByTexte?texte=confiserie").then().statusCode(200).body("description",
+        new ResponseAwareMatcher<MockMvcResponse>() {
+          public Matcher<?> matcher(MockMvcResponse response) {
+            return equalTo("magasin mock");
+          }
+        });
   }
 }

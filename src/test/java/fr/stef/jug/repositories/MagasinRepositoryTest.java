@@ -2,6 +2,8 @@ package fr.stef.jug.repositories;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +29,23 @@ public class MagasinRepositoryTest {
 
   @Autowired
   MagasinRepository repository;
-
+  
   @Test
   public void qkConfiserieDoitEtrePresent() {
     Magasin qk = repository.findOne(1L);
     assertThat(qk).isNotNull();
+  }
+  
+  @Test
+  public void findByNomQKConfiserie() {
+    Magasin qk = repository.findByNom("QK Confiserie");
+    assertThat(qk).isNotNull();
+  }
+
+  @Test
+  public void findByTexte() {
+    List<Magasin> actual = repository.findByTexte("Confiserie");
+    assertThat(actual).isNotNull().isNotEmpty();
   }
 
   @Test

@@ -3,7 +3,6 @@ package fr.stef.jug.repositories;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.stereotype.Repository;
 
 import fr.stef.jug.domain.Magasin;
 
@@ -12,11 +11,10 @@ import fr.stef.jug.domain.Magasin;
  * 
  * @author stef
  *
- * @RepositoryRestResource(path = "magasin") permet de fixer le nom de la ressource si le nom par défaut n'est
+ * @RepositoryRestResource(path = "magasins") permet de fixer le nom de la ressource si le nom par défaut n'est
  * pas celui désiré. Par défaut nom de la classe du domaine exposé par le repository et suffixé par 's'.
  */
 @RepositoryRestResource(path = "magasins")
-@Repository
 public interface MagasinRepository extends PagingAndSortingRepository<Magasin, Long>, MagasinRepositoryCustom {
 
   /**
@@ -29,5 +27,4 @@ public interface MagasinRepository extends PagingAndSortingRepository<Magasin, L
    * @return le Magasin qui porte exactement le nom passé en entrée
    */
   Magasin findByNom(@Param("nom") String nom);
-  
 }

@@ -3,6 +3,10 @@ package fr.stef.jug.repositories;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.repository.query.Param;
+
 import fr.stef.jug.domain.Magasin;
 
 /**
@@ -14,10 +18,19 @@ import fr.stef.jug.domain.Magasin;
  */
 public class MagasinRepositoryImpl implements MagasinRepositoryCustom {
 
+  /**
+   * Logger de la classe d'implémentation
+   */
+  Logger LOGGER=LoggerFactory.getLogger(MagasinRepositoryImpl.class);
+  
   @Override
-  public List<Magasin> findByTexte(String texte) {
+  public List<Magasin> findByTexte(@Param("texte") String texte) {
+    LOGGER.trace("Recherche par texte avec '{}'", texte);
+    
     List<Magasin> result=new ArrayList<>();
     Magasin un=new Magasin();
+    un.setNom("mock");
+    un.setDescription("magasin mock");
     result.add(un);
     return result;
   }
