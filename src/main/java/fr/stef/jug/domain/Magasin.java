@@ -62,9 +62,7 @@ public class Magasin extends AbstractPersistable<Long> {
     if (this == obj) {
       return true;
     }
-    if (!super.equals(obj)) {
-      return false;
-    }
+
     if (getClass() != obj.getClass()) {
       return false;
     }
