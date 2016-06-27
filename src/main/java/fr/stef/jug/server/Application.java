@@ -1,10 +1,11 @@
 package fr.stef.jug.server;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -14,10 +15,12 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  * Classe server
  *
  * @author stef
- *
+ * On n'utilise pas @SpringBootApplication car il ne permet pas d'inquer le basename des package pour le scan.
+ * Ce qui empêche de trouver les @Controller advice
  */
-@SpringBootApplication
-@ComponentScan("fr.stef.jug")
+@Configuration
+@EnableAutoConfiguration
+@ComponentScan(basePackages="fr.stef.jug")
 @EnableWebMvc
 public class Application {
 
