@@ -3,6 +3,10 @@ package fr.stef.jug.repositories;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceProperty;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.repository.query.Param;
@@ -17,7 +21,9 @@ import fr.stef.jug.domain.Magasin;
  *
  */
 public class MagasinRepositoryImpl implements MagasinRepositoryCustom {
-
+  @PersistenceContext(type = javax.persistence.PersistenceContextType.EXTENDED, properties = @PersistenceProperty(name = "org.hibernate.flushMode", value = "COMMIT"))
+  public EntityManager entityManager;
+  
   /**
    * Logger de la classe d'implémentation
    */

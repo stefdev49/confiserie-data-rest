@@ -2,6 +2,7 @@ package fr.stef.jug.repositories;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -66,5 +67,13 @@ public class MagasinRepositoryTest {
     Magasin created = repository.findOne(actual.getId());
     assertThat(created).isNotNull();
     assertThat(created).isEqualTo(actual);
+  }
+
+  @Test
+  public void listeMagasinsParIds() {
+    List<Long> magasinIdList=Arrays.asList(1L, 2L);
+    List<Magasin> actual = repository.findByIdIn(magasinIdList);
+    assertThat(actual).isNotNull().isNotEmpty();
+    assertThat(actual.size()).isEqualTo(2);
   }
 }
